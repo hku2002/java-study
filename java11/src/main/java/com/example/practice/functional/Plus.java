@@ -24,6 +24,11 @@ public class Plus {
         System.out.println(result2);
         System.out.println(result3);
 
+        // 조합하기
+        Function<Integer, Integer> multiplyTwo = number -> number * 2;
+        Function<Integer, Integer> multiplyTwoAndPlusTen = plusTen2.compose(multiplyTwo);
+        System.out.println(multiplyTwoAndPlusTen.apply(2));
+
 
     }
 }
