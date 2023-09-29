@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class App {
+public class Exam {
 
     public static void main(String[] args) {
         // Spring 강의 List 담기
