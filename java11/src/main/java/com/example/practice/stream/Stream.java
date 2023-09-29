@@ -24,10 +24,9 @@ public class Stream {
         System.out.println("===================");
 
         // 자바 8 부터 가능한 stream
-        List<String> afterUpperNames = afterNames.stream()
+        afterNames.stream()
                 .map(String::toUpperCase)
-                .collect(Collectors.toList());
-
-        afterUpperNames.forEach(System.out::println);
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
 }
