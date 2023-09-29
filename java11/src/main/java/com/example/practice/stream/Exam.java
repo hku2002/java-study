@@ -61,9 +61,9 @@ public class Exam {
         System.out.println();
 
         System.out.println("===================================");
-        System.out.println("문제6. 자바 수업 중에 Test 가 들어있는 수업이 있는지 확인 있으면 true 출력 없으면 false 출력");
+        System.out.println("문제6. 자바 수업 중에 Test 가 들어있는 수업이 있는지 확인. 있으면 true 출력 없으면 false 출력");
         System.out.println(javaClasses.stream()
-                        .anyMatch(java -> java.getTitle().contains("Test"))
+                .anyMatch(java -> java.getTitle().contains("Test"))
         );
 
         System.out.println("===================================");
