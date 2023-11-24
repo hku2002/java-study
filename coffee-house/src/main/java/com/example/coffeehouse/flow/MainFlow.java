@@ -9,7 +9,7 @@ import com.example.coffeehouse.object.coffee.Size;
 public class MainFlow {
 
     public static void main(String[] args) {
-        Customer customer = new Customer();
+        Customer customer = new Customer("Connie");
         Order order = new Order("Americano", 5000, Size.MEDIUM, true);
         Cashier cashier = new Cashier("Steve");
 

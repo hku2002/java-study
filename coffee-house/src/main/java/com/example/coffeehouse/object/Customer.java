@@ -6,8 +6,12 @@ public class Customer {
 
     public String name;
 
+    public Customer(String name) {
+        this.name = name;
+    }
+
     public Coffee requestOrderToCashier(Order order, Cashier cashier) {
-        System.out.println(name + "님이 + " + cashier.CashierName + "에게 주문을 요청하였습니다.");
+        System.out.println(name + "님이 " + cashier.CashierName + "에게 주문을 요청하였습니다.");
         return cashier.createOrderFromCustomer(order);
     }
 
