@@ -11,6 +11,7 @@ public class Barista {
     }
 
     public Coffee createCoffee(Order order) {
+        System.out.println(baristaName + "님이 커피를 만들었습니다.");
         return Coffee.create(order);
     }
 
