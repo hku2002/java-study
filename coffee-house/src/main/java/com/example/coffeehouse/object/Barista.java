@@ -6,7 +6,11 @@ public class Barista {
 
     public String baristaName;
 
-    public static Coffee createCoffee(Order order) {
+    public Barista (String baristaName) {
+        this.baristaName = baristaName;
+    }
+
+    public Coffee createCoffee(Order order) {
         return Coffee.create(order);
     }
 

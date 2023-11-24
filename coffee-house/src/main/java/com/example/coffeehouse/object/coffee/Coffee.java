@@ -7,17 +7,21 @@ import lombok.Getter;
 public class Coffee {
 
     private final String coffeeName;
-    private final int price;
     private final Size size;
+    private final int degree;
 
-    public Coffee(Order order) {
-        this.coffeeName = order.getCoffeeName();
-        this.price = order.getPrice();
-        this.size = order.getSize();
+    public Coffee(String coffeeName, Size size, int degree) {
+        this.coffeeName = coffeeName;
+        this.size = size;
+        this.degree = degree;
     }
 
     public static Coffee create(Order order) {
-        return new Coffee(order);
+        int degree = 100;
+        if (order.isIce()) {
+            degree = 15;
+        }
+        return new Coffee(order.getCoffeeName(), order.getSize(), degree);
     }
 
 }

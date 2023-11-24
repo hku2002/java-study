@@ -6,12 +6,17 @@ public class Cashier {
 
     public String CashierName;
 
-    public static Coffee createOrderFromCustomer(Order order) {
-        return requestMakeCoffeeToBarista(order);
+    public Cashier (String cashierName) {
+        this.CashierName = cashierName;
     }
 
-    private static Coffee requestMakeCoffeeToBarista(Order order) {
-        return Barista.createCoffee(order);
+    public Coffee createOrderFromCustomer(Order order) {
+        Barista barista = new Barista("Adam");
+        return requestMakeCoffeeToBarista(order, barista);
+    }
+
+    private Coffee requestMakeCoffeeToBarista(Order order, Barista barista) {
+        return barista.createCoffee(order);
     }
 
 }
