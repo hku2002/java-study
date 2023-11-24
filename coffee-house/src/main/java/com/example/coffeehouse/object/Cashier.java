@@ -21,14 +21,22 @@ public class Cashier {
     public List<Coffee> createOrdersFromCustomer(List<Order> orders) {
         System.out.println(cashierName + "님이 " + orders.size() + " 만큼 주문을 받았습니다.");
         Barista barista = new Barista("Eve");
-        return orders.stream().map(order -> requestMakeCoffeeToBarista(order, barista)).toList();
+        return requestMakeCoffeesToBarista(orders, barista);
     }
 
     private Coffee requestMakeCoffeeToBarista(Order order, Barista barista) {
-        System.out.println(cashierName + " 님이 " + barista.baristaName + "에게 " + order.getCoffeeName() + " 제조를 요청하였습니다.");
+        System.out.println(cashierName + "님이 " + barista.baristaName + "에게 " + order.getCoffeeName() + " 제조를 요청하였습니다.");
         Coffee coffee = barista.createCoffeeFromCashier(order);
-        System.out.println(cashierName + " 님이 " + barista.baristaName + "에게 " + coffee.getCoffeeName() + "를 받았습니다.");
+        System.out.println(cashierName + "님이 " + barista.baristaName + "에게 " + coffee.getCoffeeName() + "를 받았습니다.");
         return coffee;
+    }
+
+    private List<Coffee> requestMakeCoffeesToBarista(List<Order> orders, Barista barista) {
+        System.out.println(cashierName + "님이 " + barista.baristaName + "에게 " + orders.size() + " 만큼 제조를 요청하였습니다.");
+        List<Coffee> coffees = barista.createCoffeesFromCashier(orders);
+        System.out.println(cashierName + "님이 " + barista.baristaName + "에게 " + coffees.size() + " 만큼 커피를 받았습니다.");
+        return coffees;
+
     }
 
 }

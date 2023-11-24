@@ -28,7 +28,10 @@ public class MainFlow {
         Order order1 = new Order("Americano", 5000, Size.MEDIUM, true);
         Order order2 = new Order("Americano", 5500, Size.BIG, true);
         Order order3 = new Order("Cafe Mocha", 6000, Size.MEDIUM, true);
-        company.requestOrdersToCashier(List.of(order1, order2, order3), cashier);
+        List<Coffee> coffees = company.requestOrdersToCashier(List.of(order1, order2, order3), cashier);
+
+        System.out.println("##### 커피 목록 #####");
+        coffees.forEach(coffee -> System.out.println(coffee.getCoffeeName()));
 
 
     }
