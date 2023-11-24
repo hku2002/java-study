@@ -11,8 +11,10 @@ public class Customer {
     }
 
     public Coffee requestOrderToCashier(Order order, Cashier cashier) {
-        System.out.println(name + "님이 " + cashier.cashierName + "에게 주문을 요청하였습니다.");
-        return cashier.createOrderFromCustomer(order);
+        System.out.println(name + "님이 " + cashier.cashierName + "에게 주문을 요청합니다.");
+        Coffee coffee = cashier.createOrderFromCustomer(order);
+        System.out.println(name + "님이 " + cashier.cashierName + "에게 " + coffee.getCoffeeName() + "를 받았습니다.");
+        return coffee;
     }
 
 }

@@ -15,6 +15,7 @@ public class MainFlow {
 
         Coffee responseCoffee = customer.requestOrderToCashier(order, cashier);
 
+        System.out.println("===== 최종 생성된 커피 정보 =====");
         System.out.println("coffee name: " + responseCoffee.getCoffeeName());
         System.out.println("coffee degree: " + responseCoffee.getDegree());
         System.out.println("coffee size: " + responseCoffee.getSize());
