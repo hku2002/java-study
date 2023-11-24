@@ -16,7 +16,7 @@ public class Cashier {
     }
 
     private Coffee requestMakeCoffeeToBarista(Order order, Barista barista) {
-        System.out.println(CashierName + "이 " + barista.baristaName + "에게 커피 제조를 요청하였습니다.");
+        System.out.println(CashierName + "님이 " + barista.baristaName + "에게 커피 제조를 요청하였습니다.");
         return barista.createCoffee(order);
     }
 
