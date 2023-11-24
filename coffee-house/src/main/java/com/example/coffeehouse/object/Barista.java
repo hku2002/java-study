@@ -16,9 +16,9 @@ public class Barista {
     }
 
     private Coffee createCoffee(Order order) {
-        System.out.println(baristaName + "님이 커피를 만들기 시작합니다.");
+        System.out.println(baristaName + "님이 " + order.getCoffeeName() + "를 만들기 시작합니다.");
         Coffee coffee = Coffee.create(order);
-        System.out.println(baristaName + "님이 커피를 만들었습니다.");
+        System.out.println(baristaName + "님이 " + coffee.getCoffeeName() + "를 만들었습니다.");
         return coffee;
     }
 
