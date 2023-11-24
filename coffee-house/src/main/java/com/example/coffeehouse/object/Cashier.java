@@ -4,10 +4,10 @@ import com.example.coffeehouse.object.coffee.Coffee;
 
 public class Cashier {
 
-    public String CashierName;
+    public String cashierName;
 
     public Cashier (String cashierName) {
-        this.CashierName = cashierName;
+        this.cashierName = cashierName;
     }
 
     public Coffee createOrderFromCustomer(Order order) {
@@ -16,7 +16,7 @@ public class Cashier {
     }
 
     private Coffee requestMakeCoffeeToBarista(Order order, Barista barista) {
-        System.out.println(CashierName + "님이 " + barista.baristaName + "에게 커피 제조를 요청하였습니다.");
+        System.out.println(cashierName + "님이 " + barista.baristaName + "에게 커피 제조를 요청하였습니다.");
         return barista.createCoffee(order);
     }
 
