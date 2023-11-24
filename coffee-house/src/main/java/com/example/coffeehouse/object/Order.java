@@ -1,17 +1,22 @@
 package com.example.coffeehouse.object;
 
 import com.example.coffeehouse.object.coffee.Coffee;
+import com.example.coffeehouse.object.coffee.Size;
 import lombok.Getter;
 
 @Getter
 public class Order {
 
-    public String orderName;
-    public Coffee coffee;
+    public Long id;
+    public String coffeeName;
+    public int price;
+    public Size size;
 
-    public Order (String orderName, Coffee coffee) {
-        this.orderName = orderName;
-        this.coffee = coffee;
+    public Order (String coffeeName, int price, Size size) {
+        this.id = 1L;
+        this.coffeeName = coffeeName;
+        this.price = price;
+        this.size = size;
     }
 
 }

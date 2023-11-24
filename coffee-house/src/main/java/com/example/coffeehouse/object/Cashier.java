@@ -6,8 +6,12 @@ public class Cashier {
 
     public String CashierName;
 
-    private Coffee makeCoffee(Order order) {
-        return new Coffee();
+    public static Coffee createOrderFromCustomer(Order order) {
+        return requestMakeCoffeeToBarista(order);
+    }
+
+    private static Coffee requestMakeCoffeeToBarista(Order order) {
+        return Barista.createCoffee(order);
     }
 
 }
