@@ -20,10 +20,10 @@ public class Stock extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String stockName;
-    private String quantity;
+    private int quantity;
 
     @Builder
-    public Stock(String stockName, String quantity) {
+    public Stock(String stockName, int quantity) {
         this.stockName = stockName;
         this.quantity = quantity;
     }
