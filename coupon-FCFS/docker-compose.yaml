@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    restart: always
+    networks:
+      - mysql-net
+
   my-redis:
     image: redis
     container_name: my-redis
@@ -33,5 +44,6 @@ services:
 
 
 networks:
+  mysql-net:
   redis-net:
   kafka-net:

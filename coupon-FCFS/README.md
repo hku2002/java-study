@@ -9,8 +9,22 @@
 
 ### 사용하는 시스템
 
+- mysql
 - Redis
 - Kafka
+
+### Mysql 명령어
+```shell
+# docker의 mysql 진입
+docker exec -it mysql bash
+
+# mysql 진입 및 database 생성
+mysql -u root -p
+1234
+
+create database coupon;
+use coupon;
+```
 
 ### Redis 명령어
 ```shell
