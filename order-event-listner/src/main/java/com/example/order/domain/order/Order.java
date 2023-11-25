@@ -1,6 +1,7 @@
 package com.example.order.domain.order;
 
 import com.example.order.common.entity.BaseEntity;
+import com.example.order.domain.order.enumtype.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,10 +19,13 @@ public class Order extends BaseEntity {
     private Long id;
     private String orderName;
     private int totalPrice;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Builder
-    public Order(String orderName, int totalPrice) {
+    public Order(String orderName, int totalPrice, OrderStatus status) {
         this.orderName = orderName;
         this.totalPrice = totalPrice;
+        this.status = status;
     }
 }
