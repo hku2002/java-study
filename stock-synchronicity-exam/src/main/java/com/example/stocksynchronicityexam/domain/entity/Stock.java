@@ -1,10 +1,7 @@
 package com.example.stocksynchronicityexam.domain.entity;
 
 import com.example.stocksynchronicityexam.common.exception.StockQuantityException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,8 @@ public class Stock {
     private Long id;
     private Long productId;
     private int quantity;
+    @Version
+    private Long version;
 
     public Stock(Long productId, int quantity) {
         this.productId = productId;
