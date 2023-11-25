@@ -6,13 +6,18 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class CouponCountRedisRepository {
+public class RedisRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
     public Long increment() {
         return redisTemplate.opsForValue()
                 .increment("coupon:FCFS:count");
+    }
+
+    public Long set(String key) {
+        return redisTemplate.opsForSet()
+                .add("applied_user", key);
     }
 
 }
