@@ -1,6 +1,6 @@
 package com.example.api.service;
 
-import com.example.api.infra.RedisRepository;
+import com.example.api.repository.RedisRepository;
 import com.example.api.producer.CouponCreateProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
