@@ -13,9 +13,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductResponse getProduct(Long id) {
-        // 상품 조회
         Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품 정보가 없습니다."));
-
         return ProductResponse.from(product);
     }
 
