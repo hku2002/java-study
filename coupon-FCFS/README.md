@@ -24,3 +24,17 @@ incr {key}
 flushall
 ```
 
+### kafka 명령어
+```shell
+# docker의 kafka 진입
+docker exec -it my-kafka /bin/bash
+
+# 토픽생성
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic coupon-FCFS
+
+# 프로듀서 실행
+kafka-console-producer.sh --topic coupon-FCFS --broker-list 0.0.0.0:9092
+
+# 컨슈머 실행
+kafka-console-consumer.sh --topic coupon-FCFS --bootstrap-server localhost:9092
+```
