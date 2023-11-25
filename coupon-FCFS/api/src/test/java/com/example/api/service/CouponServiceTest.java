@@ -59,6 +59,9 @@ class CouponServiceTest {
 
         countDownLatch.await();
 
+        /* consumer에서 소비하는 시간이 있기에 10초 기다림 */
+        Thread.sleep(10000L);
+
         // then
         long count = couponRepository.count();
         assertThat(count).isEqualTo(100);
