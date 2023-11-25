@@ -47,8 +47,8 @@ class StockServiceTest {
     }
     
     @Test
-    @DisplayName("동시에 100개 감소 요청 시 재고가 0 이하가 되어서는 안된다.")
-    void concurrentDecrease100RequestTest() throws InterruptedException {
+    @DisplayName("동시에 100개 감소 요청 시 재고가 0 이하가 되어서는 안된다. (synchronized)")
+    void concurrentDecrease100RequestSynchronizedTest() throws InterruptedException {
         // given
         int threadCount = 100;
 
@@ -59,6 +59,29 @@ class StockServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
                 stockService.decrease(1L, 1);
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+
+        // then
+        Stock stock = stockRepository.findById(1L).orElseThrow();
+        assertThat(stock.getQuantity()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("동시에 100개 감소 요청 시 재고가 0 이하가 되어서는 안된다. (pessimistic)")
+    void concurrentDecrease100RequestPessimisticTest() throws InterruptedException {
+        // given
+        int threadCount = 100;
+
+        // when
+        ExecutorService executor = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executor.submit(() -> {
+                stockService.pessimisticDecrease(1L, 1);
                 countDownLatch.countDown();
             });
         }
