@@ -2,6 +2,7 @@ package com.example.api.service;
 
 import com.example.api.domain.entity.Coupon;
 import com.example.api.domain.repository.CouponRepository;
+import com.example.api.infra.CouponCountRedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Service;
 public class CouponService {
 
     private final CouponRepository couponRepository;
+    private final CouponCountRedisRepository couponCountRedisRepository;
 
     public void apply(Long userId) {
-        long count = couponRepository.count();
+        long count = couponCountRedisRepository.increment();
 
         if (count > 100) {
             return;
