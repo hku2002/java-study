@@ -29,7 +29,7 @@ use coupon;
 ### Redis 명령어
 ```shell
 # docker의 redis-cli 진입
-docker exec -it my-redis redis-cli
+docker exec -it redis redis-cli
 
 # incr 사용법
 incr {key}
@@ -41,7 +41,7 @@ flushall
 ### kafka 명령어
 ```shell
 # docker의 kafka 진입
-docker exec -it my-kafka /bin/bash
+docker exec -it kafka /bin/bash
 
 # 토픽생성
 kafka-topics.sh --bootstrap-server localhost:9092 --create --topic coupon-FCFS
