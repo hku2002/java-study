@@ -19,6 +19,7 @@ public class Product extends BaseEntity {
     private Long id;
     private String productName;
     private int price;
+    @Enumerated(EnumType.STRING)
     private ProductStatus status;
     @ManyToOne(fetch = FetchType.LAZY)
     private Stock stock;
@@ -28,6 +29,10 @@ public class Product extends BaseEntity {
         this.productName = productName;
         this.price = price;
         this.status = status;
+        this.stock = stock;
+    }
+
+    public void addStock(Stock stock) {
         this.stock = stock;
     }
 }
