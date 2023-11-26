@@ -8,6 +8,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.order.domain.order.enumtype.OrderStatus.COMPLETE;
+import static com.example.order.domain.order.enumtype.OrderStatus.READY;
+
 @Getter
 @Entity
 @Table(name = "orders")
@@ -21,11 +27,21 @@ public class Order extends BaseEntity {
     private int totalPrice;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @Builder
-    public Order(String orderName, int totalPrice, OrderStatus status) {
+    public Order(String orderName, int totalPrice, OrderStatus status, List<OrderProduct> orderProducts) {
         this.orderName = orderName;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.orderProducts = orderProducts;
+    }
+
+    public void completeStatus() {
+        if (!this.status.equals(READY)) {
+            throw new IllegalStateException("주문 완료 불가능한 상태입니다.");
+        }
+        this.status = COMPLETE;
     }
 }

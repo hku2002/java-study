@@ -15,14 +15,16 @@ public class OrderProduct extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long productId;
     private String productName;
     private int price;
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
     @Builder
-    public OrderProduct(String productName, int price, Order order) {
+    public OrderProduct(String productName, Long productId, int price, Order order) {
         this.productName = productName;
+        this.productId = productId;
         this.price = price;
         this.order = order;
     }
