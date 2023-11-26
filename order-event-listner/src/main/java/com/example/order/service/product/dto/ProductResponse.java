@@ -1,4 +1,4 @@
-package com.example.order.service.dto;
+package com.example.order.service.product.dto;
 
 import com.example.order.domain.product.Product;
 import com.example.order.domain.product.enumtype.ProductStatus;

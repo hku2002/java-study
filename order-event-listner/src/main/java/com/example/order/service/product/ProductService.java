@@ -1,8 +1,8 @@
-package com.example.order.service;
+package com.example.order.service.product;
 
 import com.example.order.domain.product.Product;
 import com.example.order.domain.product.ProductRepository;
-import com.example.order.service.dto.ProductResponse;
+import com.example.order.service.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
