@@ -8,9 +8,21 @@ spring:
     url: jdbc:h2:mem:db;MODE=MYSQL
     username: sa
     password:
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/event
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 1234
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         show_sql: true
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

@@ -7,7 +7,9 @@ import com.example.order.domain.product.Product;
 import com.example.order.domain.product.ProductRepository;
 import com.example.order.domain.stock.Stock;
 import com.example.order.domain.stock.StockRepository;
+import com.example.order.event.MessageEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +22,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final StockRepository stockRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public void completeOrder(Long id) {
+    public Long completeOrder(Long id) {
         // 주문 정보 조회
         Order order = orderRepository.findByIdWithOrderProducts(id)
                 .orElseThrow(() -> new IllegalArgumentException("주문 정보가 존재하지 않습니다."));
@@ -54,7 +57,8 @@ public class OrderService {
         order.completeStatus();
 
         // 메세지 이벤트 전송
+        eventPublisher.publishEvent(new MessageEvent(order.getId()));
 
-
+        return order.getId();
     }
 }
