@@ -1,7 +1,6 @@
 package com.example.order.domain.stock;
 
 import com.example.order.common.entity.BaseEntity;
-import com.example.order.domain.product.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,5 +25,12 @@ public class Stock extends BaseEntity {
     public Stock(String stockName, int quantity) {
         this.stockName = stockName;
         this.quantity = quantity;
+    }
+
+    public void deductQuantity(int quantity) {
+        if (this.quantity - quantity <= 0) {
+            throw new IllegalArgumentException("재고가 존재하지 않습니다.");
+        }
+        this.quantity -= quantity;
     }
 }
