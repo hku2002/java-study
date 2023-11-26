@@ -15,8 +15,8 @@ public class MessageEventHandler {
 
     @EventListener
     public void sendOrderCompleteMessage(MessageEvent event) {
-        log.info("event : {}", event);
         log.info("message sent!!");
+        messageService.sendOrderCompleteMessage(event.orderId());
     }
 
 }
