@@ -37,14 +37,14 @@ class StockServiceTest {
         stockRepository.saveAndFlush(stock);
 
         // when
-        StockResponse stockResponse = stockService.getStock(1L);
+        StockResponse stockResponse = stockService.getStock(stock.getId());
 
         // then
         assertAll(
                 () -> assertThat(stockResponse).isNotNull(),
                 () -> {
                     assert stockResponse != null;
-                    assertThat(stockResponse.getId()).isEqualTo(1L);
+                    assertThat(stockResponse.getId()).isEqualTo(stock.getId());
                 }
 
         );
@@ -61,7 +61,7 @@ class StockServiceTest {
         stockRepository.saveAndFlush(stock);
 
         // when, then
-        assertThatThrownBy(() -> stockService.getStock(100L))
+        assertThatThrownBy(() -> stockService.getStock(10000L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("재고가 존재하지 않습니다.");
     }

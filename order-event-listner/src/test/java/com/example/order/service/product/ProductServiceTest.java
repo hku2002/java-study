@@ -1,10 +1,9 @@
-package com.example.order.service;
+package com.example.order.service.product;
 
 import com.example.order.domain.product.Product;
 import com.example.order.domain.product.ProductRepository;
 import com.example.order.domain.stock.Stock;
 import com.example.order.domain.stock.StockRepository;
-import com.example.order.service.product.ProductService;
 import com.example.order.service.product.dto.ProductResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +48,7 @@ class ProductServiceTest {
         productRepository.saveAndFlush(product);
 
         // when
-        ProductResponse productResponse = productService.getProduct(1L);
+        ProductResponse productResponse = productService.getProduct(product.getId());
 
         // then
         assertThat(productResponse).isNotNull();
@@ -74,7 +73,7 @@ class ProductServiceTest {
         productRepository.save(product);
 
         // when, then
-        assertThatThrownBy(() -> productService.getProduct(100L))
+        assertThatThrownBy(() -> productService.getProduct(10000L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("상품 정보가 없습니다.");
     }
