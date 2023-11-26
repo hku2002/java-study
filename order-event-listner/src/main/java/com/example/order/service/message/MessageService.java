@@ -12,11 +12,12 @@ public class MessageService {
 
     private final SendMessageRepository sendMessageRepository;
 
-    public void sendOrderCompleteMessage(Long orderId) {
+    public void sendMessage(String message) throws InterruptedException {
         SendMessage sendMessage = SendMessage.builder()
                 .status(MessageStatus.READY)
-                .message(orderId + "주문이 완료되었습니다.")
+                .message(message)
                 .build();
+//        throw new InterruptedException();
         sendMessageRepository.save(sendMessage);
     }
 }

@@ -24,11 +24,14 @@ public class OrderService {
     private final StockRepository stockRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Long completeOrder(Long id) {
         // 주문 정보 조회
         Order order = orderRepository.findByIdWithOrderProducts(id)
                 .orElseThrow(() -> new IllegalArgumentException("주문 정보가 존재하지 않습니다."));
+
+        // 메세지 이벤트 전송
+        eventPublisher.publishEvent(new MessageEvent(order.getId(), order.getOrderName()));
 
         // 상품 가격 조회
         List<Long> productIds = order.getOrderProducts().stream()
@@ -56,8 +59,8 @@ public class OrderService {
         // 주문 완료
         order.completeStatus();
 
-        // 메세지 이벤트 전송
-        eventPublisher.publishEvent(new MessageEvent(order.getId()));
+        // 주문 실패 및 강제 롤백 처리 시 아래 코드 주석 해제
+//        throw new RuntimeException();
 
         return order.getId();
     }

@@ -1,4 +1,4 @@
 package com.example.order.event;
 
-public record MessageEvent(Long orderId) {
+public record MessageEvent(Long orderId, String orderName) {
 }
