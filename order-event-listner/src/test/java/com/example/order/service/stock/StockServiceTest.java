@@ -44,7 +44,7 @@ class StockServiceTest {
                 () -> assertThat(stockResponse).isNotNull(),
                 () -> {
                     assert stockResponse != null;
-                    assertThat(stockResponse.getId()).isEqualTo(stock.getId());
+                    assertThat(stockResponse.id()).isEqualTo(stock.getId());
                 }
 
         );

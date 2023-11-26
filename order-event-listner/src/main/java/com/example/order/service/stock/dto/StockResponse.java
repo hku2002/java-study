@@ -2,20 +2,11 @@ package com.example.order.service.stock.dto;
 
 import com.example.order.domain.stock.Stock;
 import lombok.Builder;
-import lombok.Getter;
 
-@Getter
-public class StockResponse {
-
-    private Long id;
-    private String stockName;
-    private int quantity;
+public record StockResponse(Long id, String stockName, int quantity) {
 
     @Builder
-    public StockResponse(Long id, String stockName, int quantity) {
-        this.id = id;
-        this.stockName = stockName;
-        this.quantity = quantity;
+    public StockResponse {
     }
 
     public static StockResponse from(Stock stock) {
