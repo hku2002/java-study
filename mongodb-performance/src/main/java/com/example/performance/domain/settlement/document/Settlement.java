@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -17,15 +18,16 @@ import java.time.LocalDateTime;
 public class Settlement {
 
     @Id
+    @Field("_id")
     private ObjectId id;
     private String orderName;
-    private String totalPrice;
+    private int totalPrice;
     private SettlementStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @Builder
-    public Settlement(String orderName, String totalPrice, SettlementStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Settlement(String orderName, int totalPrice, SettlementStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.orderName = orderName;
         this.totalPrice = totalPrice;
         this.status = status;
