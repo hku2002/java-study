@@ -19,10 +19,28 @@ class SettlementServiceTest {
     SettlementService settlementService;
 
     @Test
+    @DisplayName("insertOneTest")
+    void insertOneTest() {
+        List<Settlement> settlements = new ArrayList<>();
+        for (int i=0; i<100000; i++) {
+            settlements.add(
+                    Settlement.builder()
+                            .orderName("주문" + i)
+                            .status(WAITING)
+                            .totalPrice(1000)
+                            .createdAt(LocalDateTime.now())
+                            .build()
+            );
+        }
+
+        settlementService.insertOne(settlements);
+    }
+
+    @Test
     @DisplayName("insertManyTest")
     void insertManyTest() {
         List<Settlement> settlements = new ArrayList<>();
-        for (int i=0; i<300000; i++) {
+        for (int i=0; i<100000; i++) {
             settlements.add(
                 Settlement.builder()
                         .orderName("주문" + i)
