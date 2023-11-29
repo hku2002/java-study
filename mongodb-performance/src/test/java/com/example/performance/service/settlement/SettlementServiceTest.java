@@ -57,6 +57,12 @@ class SettlementServiceTest {
     }
 
     @Test
+    @DisplayName("updateOneTest")
+    void updateOneTest() {
+        settlementService.updateOne();
+    }
+
+    @Test
     @DisplayName("updateManyTest")
     void updateManyTest() {
         settlementService.updateMany();

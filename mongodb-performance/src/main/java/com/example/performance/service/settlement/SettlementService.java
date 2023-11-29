@@ -1,8 +1,9 @@
 package com.example.performance.service.settlement;
 
 import com.example.performance.domain.settlement.document.Settlement;
-import com.mongodb.bulk.BulkWriteResult;
-import com.mongodb.client.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +12,7 @@ import org.bson.conversions.Bson;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.mongodb.client.model.Filters.eq;
 
 @Slf4j
 @Service
@@ -70,7 +68,25 @@ public class SettlementService {
     }
 
     public void updateOne() {
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("settlement");
+        UpdateOptions options = new UpdateOptions().upsert(true);
 
+        long startTime = System.currentTimeMillis();
+        for (Document document : collection.find()) {
+            Document filter = new Document().append("_id", document.get("_id"));
+            Bson updates = Updates.combine(
+                    Updates.set("orderName", "updateOne")
+            );
+
+            collection.updateOne(filter, updates, options);
+        }
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
     }
 
     public void updateMany() {
