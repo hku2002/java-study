@@ -36,7 +36,7 @@ public class SettlementService {
             );
         }
         long endTime = System.currentTimeMillis();
-        long takenTime = (endTime - startTime) / 1000;
+        long takenTime = (endTime - startTime);
 
         log.info("startTime    : {}", startTime);
         log.info("endTime      : {}", endTime);
