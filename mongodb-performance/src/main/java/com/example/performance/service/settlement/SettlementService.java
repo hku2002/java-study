@@ -1,8 +1,9 @@
 package com.example.performance.service.settlement;
 
 import com.example.performance.domain.settlement.document.Settlement;
+import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
@@ -10,6 +11,7 @@ import org.bson.conversions.Bson;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -76,7 +78,7 @@ public class SettlementService {
         MongoCollection<Document> collection = database.getCollection("settlement");
 
         Document document = new Document()
-                .append("$set", new Document("orderName", "test"));
+                .append("$set", new Document("orderName", "updateMany"));
 
         long startTime = System.currentTimeMillis();
         collection.updateMany(Filters.eq("status", "WAITING"), document);
@@ -92,17 +94,24 @@ public class SettlementService {
 
         MongoDatabase database = mongoClient.getDatabase("performance");
         MongoCollection<Document> collection = database.getCollection("settlement");
-        List<Document> settlementList = new ArrayList<>();
+        List<WriteModel<Document>> settlementList = new ArrayList<>();
+
         for (Document document : collection.find()) {
             settlementList.add(
-                    new Document()
-                            .append("orderName", document.get("orderName") + "-update")
-                            .append("status", document.get("status"))
-                            .append("totalPrice", document.get("totalPrice"))
-                            .append("createdAt", document.get("createdAt"))
-                            .append("updatedAt", document.get("updatedAt"))
+                    new UpdateOneModel<>(new Document("_id", document.get("_id")),
+                            new Document("$set", new Document("orderName", "bulkWrite")),
+                            new UpdateOptions().upsert(true))
             );
         }
+
+        long startTime = System.currentTimeMillis();
+        collection.bulkWrite(settlementList);
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
 
     }
 

@@ -62,4 +62,10 @@ class SettlementServiceTest {
         settlementService.updateMany();
     }
 
+    @Test
+    @DisplayName("bulkWriteTest")
+    void bulkWriteTest() {
+        settlementService.bulkWrite();
+    }
+
 }
