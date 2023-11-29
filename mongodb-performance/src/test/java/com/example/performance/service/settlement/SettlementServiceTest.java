@@ -35,6 +35,7 @@ class SettlementServiceTest {
         }
 
         settlementService.insertOne(settlements);
+        // 100,000건 약 13초 소요
     }
 
     @Test
@@ -54,24 +55,28 @@ class SettlementServiceTest {
         }
 
         settlementService.insertMany(settlements);
+        // 100,000건 약 633ms 소요
     }
 
     @Test
     @DisplayName("updateOneTest")
     void updateOneTest() {
         settlementService.updateOne();
+        // 100,000건 약 14초 소요
     }
 
     @Test
     @DisplayName("updateManyTest")
     void updateManyTest() {
         settlementService.updateMany();
+        // 100,000건 약 495ms 소요
     }
 
     @Test
     @DisplayName("bulkWriteTest")
     void bulkWriteTest() {
         settlementService.bulkWrite();
+        // 100,000건 약 1480ms 소요
     }
 
 }
