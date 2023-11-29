@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Settlement {
 
-    @MongoId
+    @Id
     @Field("_id")
-    private ObjectId id;
+    private Long id;
     private String orderName;
     private int totalPrice;
     private SettlementStatus status;
@@ -28,7 +28,8 @@ public class Settlement {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Settlement(String orderName, int totalPrice, SettlementStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Settlement(Long id, String orderName, int totalPrice, SettlementStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
         this.orderName = orderName;
         this.totalPrice = totalPrice;
         this.status = status;

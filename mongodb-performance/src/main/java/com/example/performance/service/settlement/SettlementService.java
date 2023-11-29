@@ -26,6 +26,7 @@ public class SettlementService {
         for (Settlement settlement : settlements) {
             collection.insertOne(
                     new Document()
+                            .append("_id", settlement.getId())
                             .append("orderName", settlement.getOrderName())
                             .append("status", settlement.getStatus())
                             .append("totalPrice", settlement.getTotalPrice())
@@ -46,6 +47,7 @@ public class SettlementService {
         for (Settlement settlement : settlements) {
             settlementList.add(
                     new Document()
+                            .append("_id", settlement.getId())
                             .append("orderName", settlement.getOrderName())
                             .append("status", settlement.getStatus())
                             .append("totalPrice", settlement.getTotalPrice())

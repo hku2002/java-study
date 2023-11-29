@@ -25,6 +25,7 @@ class SettlementServiceTest {
         for (int i=0; i<100000; i++) {
             settlements.add(
                     Settlement.builder()
+                            .id((long) i)
                             .orderName("주문" + i)
                             .status(WAITING)
                             .totalPrice(1000)
@@ -43,6 +44,7 @@ class SettlementServiceTest {
         for (int i=0; i<100000; i++) {
             settlements.add(
                 Settlement.builder()
+                        .id((long) i)
                         .orderName("주문" + i)
                         .status(WAITING)
                         .totalPrice(1000)
