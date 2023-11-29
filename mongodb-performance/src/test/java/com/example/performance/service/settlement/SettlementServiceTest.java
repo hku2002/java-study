@@ -56,4 +56,10 @@ class SettlementServiceTest {
         settlementService.insertMany(settlements);
     }
 
+    @Test
+    @DisplayName("updateManyTest")
+    void updateManyTest() {
+        settlementService.updateMany();
+    }
+
 }

@@ -1,16 +1,18 @@
 package com.example.performance.service.settlement;
 
 import com.example.performance.domain.settlement.document.Settlement;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
 
 @Slf4j
 @Service
@@ -70,10 +72,37 @@ public class SettlementService {
     }
 
     public void updateMany() {
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("settlement");
 
+        Document document = new Document()
+                .append("$set", new Document("orderName", "test"));
+
+        long startTime = System.currentTimeMillis();
+        collection.updateMany(Filters.eq("status", "WAITING"), document);
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
     }
 
     public void bulkWrite() {
+
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("settlement");
+        List<Document> settlementList = new ArrayList<>();
+        for (Document document : collection.find()) {
+            settlementList.add(
+                    new Document()
+                            .append("orderName", document.get("orderName") + "-update")
+                            .append("status", document.get("status"))
+                            .append("totalPrice", document.get("totalPrice"))
+                            .append("createdAt", document.get("createdAt"))
+                            .append("updatedAt", document.get("updatedAt"))
+            );
+        }
 
     }
 
