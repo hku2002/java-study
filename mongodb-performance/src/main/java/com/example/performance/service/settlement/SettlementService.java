@@ -42,6 +42,34 @@ public class SettlementService {
         log.info("endTime      : {}", endTime);
         log.info("takenTime(ms): {}", takenTime);
     }
+
+    public void insertOneThreadSleep(List<Settlement> settlements) throws InterruptedException {
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("settlement");
+        long startTime = System.currentTimeMillis();
+        int i=0;
+        for (Settlement settlement : settlements) {
+            collection.insertOne(
+                    new Document()
+                            .append("_id", settlement.getId())
+                            .append("orderName", settlement.getOrderName())
+                            .append("status", settlement.getStatus())
+                            .append("totalPrice", settlement.getTotalPrice())
+                            .append("createdAt", settlement.getCreatedAt())
+            );
+            i++;
+            if (i == 5000) {
+                Thread.sleep(500);
+                i = 0;
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
+    }
     public void insertMany(List<Settlement> settlements) {
 
         MongoDatabase database = mongoClient.getDatabase("performance");

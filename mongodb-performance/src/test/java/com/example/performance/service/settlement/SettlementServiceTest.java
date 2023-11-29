@@ -39,6 +39,25 @@ class SettlementServiceTest {
     }
 
     @Test
+    @DisplayName("insertOneTreadSleepTest")
+    void insertOneTreadSleepTest() throws InterruptedException {
+        List<Settlement> settlements = new ArrayList<>();
+        for (int i=0; i<100000; i++) {
+            settlements.add(
+                    Settlement.builder()
+                            .id((long) i)
+                            .orderName("주문" + i)
+                            .status(WAITING)
+                            .totalPrice(1000)
+                            .createdAt(LocalDateTime.now())
+                            .build()
+            );
+        }
+
+        settlementService.insertOneThreadSleep(settlements);
+    }
+
+    @Test
     @DisplayName("insertManyTest")
     void insertManyTest() {
         List<Settlement> settlements = new ArrayList<>();
