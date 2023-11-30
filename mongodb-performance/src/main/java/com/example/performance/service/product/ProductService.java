@@ -4,11 +4,15 @@ import com.example.performance.domain.product.document.Product;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOneModel;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.WriteModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -70,6 +74,25 @@ public class ProductService {
     }
 
     public void bulkWrite() {
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("product");
+        List<WriteModel<Document>> productList = new ArrayList<>();
 
+        for (Document document : collection.find()) {
+            productList.add(
+                    new UpdateOneModel<>(new Document("_id", document.get("_id")),
+                            new Document("$set", new Document("productName", "bulkWrite")),
+                            new UpdateOptions().upsert(true))
+            );
+        }
+
+        long startTime = System.currentTimeMillis();
+        collection.bulkWrite(productList);
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
     }
 }
