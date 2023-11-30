@@ -31,7 +31,7 @@ public class Product {
     private String badgeImageUrl;
     private String videoUrl;
     private Long stockId;
-    private Long stockName;
+    private String stockName;
     private Long option1Id;
     private String option1Name;
     private Long option2Id;
@@ -47,7 +47,7 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Product(Long id, String productName, int price, int discountPrice, String discountType, Long category1Id, Long category2Id, Long category3Id, Long category4Id, String status, String thumbnailImageUrl, String detailImageUrl, String explainImageUrl, String badgeImageUrl, String videoUrl, Long stockId, Long stockName, Long option1Id, String option1Name, Long option2Id, String option2Name, boolean isPackage, boolean isSample, boolean activated, Long workerId, String workerName, LocalDateTime eventStartedAt, LocalDateTime eventEndedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Product(Long id, String productName, int price, int discountPrice, String discountType, Long category1Id, Long category2Id, Long category3Id, Long category4Id, String status, String thumbnailImageUrl, String detailImageUrl, String explainImageUrl, String badgeImageUrl, String videoUrl, Long stockId, String stockName, Long option1Id, String option1Name, Long option2Id, String option2Name, boolean isPackage, boolean isSample, boolean activated, Long workerId, String workerName, LocalDateTime eventStartedAt, LocalDateTime eventEndedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.productName = productName;
         this.price = price;
