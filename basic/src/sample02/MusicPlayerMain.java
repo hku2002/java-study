@@ -1,4 +1,4 @@
-package sample2;
+package sample02;
 
 public class MusicPlayerMain {
 
