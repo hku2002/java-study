@@ -34,6 +34,7 @@ public class ConsumerMain {
         ConsumerMain main = new ConsumerMain();
         Consumer<String> str = System.out::println;
         str.accept("test");
+        str.accept("test2");
         main.addInit(str);
         main.initTest("second");
 
