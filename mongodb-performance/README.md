@@ -16,3 +16,8 @@ db.createUser({
   roles: [ { role: "readWrite", db: "performance" } ]
 });
 ```
+
+### docker 컨테이너 실시간 cpu 보는법
+```shell
+docker stats {컨테이너ID 혹은 name}
+```
