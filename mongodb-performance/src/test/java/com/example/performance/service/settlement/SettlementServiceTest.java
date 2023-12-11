@@ -98,4 +98,11 @@ class SettlementServiceTest {
         // 100,000건 약 1480ms 소요
     }
 
+    @Test
+    @DisplayName("bulkWriteOrderedFalseTest")
+    void bulkWriteOrderedFalseTest() {
+        settlementService.bulkWriteOrderedFalse();
+        // 100,000건 약 1484ms 소요
+    }
+
 }

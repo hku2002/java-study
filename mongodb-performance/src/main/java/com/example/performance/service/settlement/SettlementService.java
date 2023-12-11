@@ -159,4 +159,31 @@ public class SettlementService {
 
     }
 
+    public void bulkWriteOrderedFalse() {
+
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("settlement");
+        List<WriteModel<Document>> settlementList = new ArrayList<>();
+
+        for (Document document : collection.find()) {
+            settlementList.add(
+                    new UpdateOneModel<>(new Document("_id", document.get("_id")),
+                            new Document("$set", new Document("orderName", "bulkWriteOrderedFalse")),
+                            new UpdateOptions().upsert(true))
+            );
+        }
+
+        BulkWriteOptions bulkWriteOptions = new BulkWriteOptions().ordered(false);
+
+        long startTime = System.currentTimeMillis();
+        collection.bulkWrite(settlementList, bulkWriteOptions);
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        log.info("startTime    : {}", startTime);
+        log.info("endTime      : {}", endTime);
+        log.info("takenTime(ms): {}", takenTime);
+
+    }
+
 }
