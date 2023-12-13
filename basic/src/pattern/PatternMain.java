@@ -8,6 +8,10 @@ public class PatternMain {
 
         Singleton singleton2 = Singleton.getInstance();
         System.out.println("singleton2 address : " + singleton2);
+
+        if (singleton1 == singleton2) {
+            System.out.println("singleton success");
+        }
     }
 
 }
