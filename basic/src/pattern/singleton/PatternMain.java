@@ -1,4 +1,4 @@
-package pattern;
+package pattern.singleton;
 
 public class PatternMain {
 
