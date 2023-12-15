@@ -20,6 +20,10 @@ public class Book {
         this.price = price;
     }
 
+    public static BookBuilder builder() {
+        return new BookBuilder();
+    }
+
     public long getId() {
         return id;
     }
