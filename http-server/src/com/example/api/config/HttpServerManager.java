@@ -1,5 +1,6 @@
 package com.example.api.config;
 
+import com.example.api.handler.RouteHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class HttpServerManager {
 
     public HttpServerManager() throws IOException {
         httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", 8080), 0);
-        httpServer.createContext("/"); // TODO: add Handler
+        httpServer.createContext("/", new RouteHandler());
     }
 
     public void start() {
