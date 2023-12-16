@@ -12,8 +12,6 @@ public class Main {
         HttpServerManager serverManager = new HttpServerManager();
         serverManager.start();
 
-        //serverManager.stop();
-
     }
 
 }
