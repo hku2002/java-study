@@ -5,16 +5,22 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 
 public class RouteHandler implements HttpHandler {
 
+    private final GetHandler getHandler = new GetHandler();
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        URI uri = exchange.getRequestURI();
-        System.out.println("uri :" + uri);
 
-        String responseBody = "{\"statusCode\": 200}";
+        String responseBody = null;
+        if ("GET".equals(exchange.getRequestMethod())) {
+            responseBody = getHandler.responseBodyByPath(exchange.getRequestURI().getPath());
+        }
+
+        System.out.println("responseBody: " + responseBody);
+
+        assert responseBody != null;
         byte[] responseBodyByte = responseBody.getBytes();
         exchange.sendResponseHeaders(200, responseBody.length());
         OutputStream outputStream = exchange.getResponseBody();
