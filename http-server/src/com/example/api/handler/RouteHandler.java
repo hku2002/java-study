@@ -18,6 +18,10 @@ public class RouteHandler implements HttpHandler {
             responseBody = getHandler.responseBodyByPath(exchange.getRequestURI().getPath());
         }
 
+        if ("POST".equals(exchange.getRequestMethod())) {
+            System.out.println("POST METHOD");
+        }
+
         assert responseBody != null;
         byte[] responseBodyByte = responseBody.getBytes();
         exchange.sendResponseHeaders(200, responseBody.length());
