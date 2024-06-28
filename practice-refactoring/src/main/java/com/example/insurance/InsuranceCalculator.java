@@ -19,8 +19,8 @@ public class InsuranceCalculator {
         return (income - adjustment) * weight + constant;
     }
 
-    private static boolean isGrateAndEquals(double income, int i) {
-        return income <= i;
+    private static boolean isGrateAndEquals(double income, int baseIncome) {
+        return income <= baseIncome;
     }
 
 }
