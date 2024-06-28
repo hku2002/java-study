@@ -1,8 +1,8 @@
-package com.example.insurance;
+package com.example.insurance.refactor;
 
 import java.util.List;
 
-import static com.example.insurance.InsuranceStrategy.getInstance;
+import static com.example.insurance.refactor.InsuranceStrategy.getInstance;
 
 public class InsuranceCalculator {
 

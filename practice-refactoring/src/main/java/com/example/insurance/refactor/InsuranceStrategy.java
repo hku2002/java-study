@@ -1,4 +1,4 @@
-package com.example.insurance;
+package com.example.insurance.refactor;
 
 public record InsuranceStrategy(int baseIncome, int adjustment, double weight, int constant) {
 
