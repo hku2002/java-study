@@ -9,4 +9,8 @@ public record InsuranceStrategy(int baseIncome, int adjustment, double weight, i
     double calculateCommand(double income) {
         return (income - adjustment) * weight + constant;
     }
+
+    boolean isGrateAndEquals(double income) {
+        return income <= baseIncome;
+    }
 }
