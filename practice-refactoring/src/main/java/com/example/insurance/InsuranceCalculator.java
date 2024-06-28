@@ -4,19 +4,15 @@ public class InsuranceCalculator {
 
     public double calculateInsurance(double income) {
         if (isGrateAndEquals(income, 10000)) {
-            return calculateCommand(income, new insuranceStrategy(0, 0.365, 0));
+            return new insuranceStrategy(0, 0.365, 0).calculateCommand(income);
         }
         if (isGrateAndEquals(income, 30000)) {
-            return calculateCommand(income, new insuranceStrategy(10000, 0.2, 35600));
+            return new insuranceStrategy(10000, 0.2, 35600).calculateCommand(income);
         }
         if (isGrateAndEquals(income, 60000)) {
-            return calculateCommand(income, new insuranceStrategy(30000, 0.1, 76500));
+            return new insuranceStrategy(30000, 0.1, 76500).calculateCommand(income);
         }
-        return calculateCommand(income, new insuranceStrategy(60000, 0.02, 105600));
-    }
-
-    private double calculateCommand(double income, insuranceStrategy strategy) {
-        return (income - strategy.adjustment()) * strategy.weight() + strategy.constant();
+        return new insuranceStrategy(60000, 0.02, 105600).calculateCommand(income);
     }
 
     private boolean isGrateAndEquals(double income, int baseIncome) {
