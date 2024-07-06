@@ -17,7 +17,7 @@ public class BatchConsumer {
     public void consume() {
         Message message = messageConsumer.consumeOne();
         log.info("메세지가 Consume 되었습니다.");
-        log.info("메세지 정보: {}", message);
+        log.info("메세지 정보: {}", message.getMessage());
     }
 
 }
