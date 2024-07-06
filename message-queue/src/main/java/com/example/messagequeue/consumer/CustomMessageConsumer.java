@@ -4,6 +4,7 @@ import com.example.messagequeue.queue.Message;
 import com.example.messagequeue.queue.MessageQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,11 @@ public class CustomMessageConsumer implements MessageConsumer {
     public List<Message> consumeBatch(int batchSize) {
         List<Message> messages = new LinkedList<>();
         IntStream.range(0, batchSize)
-                .forEach(i -> messages.add(messageQueue.poll()));
+                .forEach(i -> {
+                    Message message = messageQueue.poll();
+                    if (ObjectUtils.isEmpty(message)) return;
+                    messages.add(message);
+                });
         return messages;
     }
 }
