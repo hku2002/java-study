@@ -13,6 +13,7 @@ import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -50,6 +51,9 @@ public class ProductService {
                             .append("option1Name", product.getOption1Name())
                             .append("option2Id", product.getOption2Id())
                             .append("option2Name", product.getOption2Name())
+                            .append("coupon", new Document()
+                                    .append("isIssued", product.getCoupon().isIssued())
+                                    .append("userBitmap", product.getCoupon().getUserBitmap()))
                             .append("isPackage", product.isPackage())
                             .append("isSample", product.isSample())
                             .append("activated", product.isActivated())
@@ -100,6 +104,9 @@ public class ProductService {
                             .append("option1Name", product.getOption1Name())
                             .append("option2Id", product.getOption2Id())
                             .append("option2Name", product.getOption2Name())
+                            .append("coupon", new Document()
+                                    .append("isIssued", product.getCoupon().isIssued())
+                                    .append("userBitmap", product.getCoupon().getUserBitmap()))
                             .append("isPackage", product.isPackage())
                             .append("isSample", product.isSample())
                             .append("activated", product.isActivated())
@@ -145,4 +152,64 @@ public class ProductService {
         log.info("endTime      : {}", endTime);
         log.info("takenTime(ms): {}", takenTime);
     }
+
+    public void handleCouponIssuedEvent(List<Integer> userIds, int productId) {
+        MongoDatabase database = mongoClient.getDatabase("performance");
+        MongoCollection<Document> collection = database.getCollection("product");
+
+        // 상품 조회
+        Document product = collection.find(new Document("_id", productId)).first();
+
+        if (product != null) {
+            // 기존 비트맵 가져오기
+            String userBitmap = product.get("coupon", Document.class).getString("userBitmap");
+
+            // 비트맵 업데이트
+            String updatedBitmap = updateUserBitmap(userBitmap, userIds);
+
+            // MongoDB 업데이트
+            Document updatedCouponInfo = new Document(product.get("coupon", Document.class))
+                    .append("userBitmap", updatedBitmap);
+            collection.updateOne(
+                    new Document("_id", productId),
+                    new Document("$set", new Document("coupon", updatedCouponInfo))
+            );
+        }
+    }
+
+    private String updateUserBitmap(String userBitmap, List<Integer> userIds) {
+        if (userBitmap == null) {
+            userBitmap = "";
+        }
+
+        long startTime = System.currentTimeMillis();
+
+        // 최대 userId를 미리 계산
+        int maxUserId = userIds.stream().max(Integer::compareTo).orElse(0);
+
+        // 비트맵 크기 확장: 최대 userId를 기준으로 한 번만 확장
+        char[] bitmapArray = new char[Math.max(userBitmap.length(), maxUserId + 1)];
+        Arrays.fill(bitmapArray, '0'); // 배열을 '0'으로 초기화
+
+        // 기존 userBitmap 값 복사
+        if (!userBitmap.isEmpty()) {
+            System.arraycopy(userBitmap.toCharArray(), 0, bitmapArray, 0, userBitmap.length());
+        }
+
+        // userIds를 기반으로 비트를 '1'로 설정
+        for (int userId : userIds) {
+            bitmapArray[userId] = '1';
+        }
+
+
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+        log.info("for startTime    : {}", startTime);
+        log.info("for endTime      : {}", endTime);
+        log.info("for takenTime(ms): {}", takenTime);
+
+        return new String(bitmapArray);
+        
+    }
+
 }

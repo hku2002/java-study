@@ -1,5 +1,6 @@
 package com.example.performance.service.product;
 
+import com.example.performance.domain.product.document.Coupon;
 import com.example.performance.domain.product.document.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ class ProductServiceTest {
     @Test
     void insertOneTest() {
         List<Product> products = new ArrayList<>();
-        for (int i=0; i<100000; i++) {
+        for (int i=1; i<=1000; i++) {
             products.add(
                     Product.builder()
                             .id((long) i)
@@ -41,6 +42,7 @@ class ProductServiceTest {
                             .option1Name("옵션 첫번째")
                             .option2Id(2L)
                             .option2Name("옵션 두번재")
+                            .coupon(new Coupon(true, ""))
                             .isPackage(false)
                             .isPackage(false)
                             .activated(true)
@@ -60,7 +62,7 @@ class ProductServiceTest {
     @Test
     void insertManyTest() {
         List<Product> products = new ArrayList<>();
-        for (int i=0; i<100000; i++) {
+        for (int i=1; i<=100000; i++) {
             products.add(
                     Product.builder()
                             .id((long) i)
@@ -83,6 +85,7 @@ class ProductServiceTest {
                             .option1Name("옵션 첫번째")
                             .option2Id(2L)
                             .option2Name("옵션 두번재")
+                            .coupon(new Coupon(true, ""))
                             .isPackage(false)
                             .isPackage(false)
                             .activated(true)
@@ -98,4 +101,27 @@ class ProductServiceTest {
         productService.insertMany(products);
 
     }
+
+
+    @Test
+    void addCoupon() {
+        long startTime = System.currentTimeMillis();
+        List<Integer> userIds = new ArrayList<>();
+        for (int i=1; i<=2000000; i++) {
+            if (i % 2 == 1) {
+                continue;
+            }
+            userIds.add(i);
+        }
+
+        productService.handleCouponIssuedEvent(userIds, 2);
+
+        long endTime = System.currentTimeMillis();
+        long takenTime = (endTime - startTime);
+
+        System.out.println("startTime    : " + startTime);
+        System.out.println("endTime      : " + endTime);
+        System.out.println("takenTime(ms): " + takenTime);
+    }
+
 }

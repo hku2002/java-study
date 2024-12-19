@@ -36,6 +36,7 @@ public class Product {
     private String option1Name;
     private Long option2Id;
     private String option2Name;
+    private Coupon coupon;
     private boolean isPackage;
     private boolean isSample;
     private boolean activated;
@@ -47,7 +48,7 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Product(Long id, String productName, int price, int discountPrice, String discountType, Long category1Id, Long category2Id, Long category3Id, Long category4Id, String status, String thumbnailImageUrl, String detailImageUrl, String explainImageUrl, String badgeImageUrl, String videoUrl, Long stockId, String stockName, Long option1Id, String option1Name, Long option2Id, String option2Name, boolean isPackage, boolean isSample, boolean activated, Long workerId, String workerName, LocalDateTime eventStartedAt, LocalDateTime eventEndedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Product(Long id, String productName, int price, int discountPrice, String discountType, Long category1Id, Long category2Id, Long category3Id, Long category4Id, String status, String thumbnailImageUrl, String detailImageUrl, String explainImageUrl, String badgeImageUrl, String videoUrl, Long stockId, String stockName, Long option1Id, String option1Name, Long option2Id, String option2Name, Coupon coupon, boolean isPackage, boolean isSample, boolean activated, Long workerId, String workerName, LocalDateTime eventStartedAt, LocalDateTime eventEndedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.productName = productName;
         this.price = price;
@@ -69,6 +70,7 @@ public class Product {
         this.option1Name = option1Name;
         this.option2Id = option2Id;
         this.option2Name = option2Name;
+        this.coupon = coupon;
         this.isPackage = isPackage;
         this.isSample = isSample;
         this.activated = activated;
